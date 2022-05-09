@@ -11,6 +11,7 @@
 		81C07309282918B7004235B4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C07308282918B7004235B4 /* ContentView.swift */; };
 		81C0730B282918B8004235B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81C0730A282918B8004235B4 /* Assets.xcassets */; };
 		81C0730E282918B8004235B4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81C0730D282918B8004235B4 /* Preview Assets.xcassets */; };
+		81C073182829190D004235B4 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C073172829190D004235B4 /* NotificationHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		81C07308282918B7004235B4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		81C0730A282918B8004235B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81C0730D282918B8004235B4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		81C073172829190D004235B4 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				81C07306282918B7004235B4 /* LocalNotificationsExampleApp.swift */,
+				81C07314282918C8004235B4 /* Handlers */,
 				81C07308282918B7004235B4 /* ContentView.swift */,
 				81C0730A282918B8004235B4 /* Assets.xcassets */,
 				81C0730C282918B8004235B4 /* Preview Content */,
@@ -65,6 +68,14 @@
 				81C0730D282918B8004235B4 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		81C07314282918C8004235B4 /* Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				81C073172829190D004235B4 /* NotificationHandler.swift */,
+			);
+			path = Handlers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81C07309282918B7004235B4 /* ContentView.swift in Sources */,
+				81C073182829190D004235B4 /* NotificationHandler.swift in Sources */,
 				81C07307282918B7004235B4 /* LocalNotificationsExampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
