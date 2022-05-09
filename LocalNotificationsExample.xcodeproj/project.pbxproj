@@ -11,7 +11,9 @@
 		81C07309282918B7004235B4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C07308282918B7004235B4 /* ContentView.swift */; };
 		81C0730B282918B8004235B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81C0730A282918B8004235B4 /* Assets.xcassets */; };
 		81C0730E282918B8004235B4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81C0730D282918B8004235B4 /* Preview Assets.xcassets */; };
-		81C073182829190D004235B4 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C073172829190D004235B4 /* NotificationHandler.swift */; };
+		81E31F9C2829245100BEC58C /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E31F9B2829245100BEC58C /* SharedConstants.swift */; };
+		81E31F9F28292DDF00BEC58C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E31F9E28292DDF00BEC58C /* AppDelegate.swift */; };
+		81E31FA12829300A00BEC58C /* SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E31FA02829300A00BEC58C /* SharedFunctions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,7 +22,9 @@
 		81C07308282918B7004235B4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		81C0730A282918B8004235B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81C0730D282918B8004235B4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		81C073172829190D004235B4 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
+		81E31F9B2829245100BEC58C /* SharedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
+		81E31F9E28292DDF00BEC58C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		81E31FA02829300A00BEC58C /* SharedFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFunctions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,8 +58,9 @@
 			isa = PBXGroup;
 			children = (
 				81C07306282918B7004235B4 /* LocalNotificationsExampleApp.swift */,
-				81C07314282918C8004235B4 /* Handlers */,
-				81C07308282918B7004235B4 /* ContentView.swift */,
+				81E31F9D28292DBE00BEC58C /* Delegates */,
+				81E31F9A2829243000BEC58C /* Helpers */,
+				81E31F9728291FA000BEC58C /* Views */,
 				81C0730A282918B8004235B4 /* Assets.xcassets */,
 				81C0730C282918B8004235B4 /* Preview Content */,
 			);
@@ -70,12 +75,29 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		81C07314282918C8004235B4 /* Handlers */ = {
+		81E31F9728291FA000BEC58C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				81C073172829190D004235B4 /* NotificationHandler.swift */,
+				81C07308282918B7004235B4 /* ContentView.swift */,
 			);
-			path = Handlers;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		81E31F9A2829243000BEC58C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				81E31F9B2829245100BEC58C /* SharedConstants.swift */,
+				81E31FA02829300A00BEC58C /* SharedFunctions.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		81E31F9D28292DBE00BEC58C /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				81E31F9E28292DDF00BEC58C /* AppDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,8 +170,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81E31F9F28292DDF00BEC58C /* AppDelegate.swift in Sources */,
 				81C07309282918B7004235B4 /* ContentView.swift in Sources */,
-				81C073182829190D004235B4 /* NotificationHandler.swift in Sources */,
+				81E31F9C2829245100BEC58C /* SharedConstants.swift in Sources */,
+				81E31FA12829300A00BEC58C /* SharedFunctions.swift in Sources */,
 				81C07307282918B7004235B4 /* LocalNotificationsExampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
