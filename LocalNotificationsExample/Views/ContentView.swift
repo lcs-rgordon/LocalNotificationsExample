@@ -12,6 +12,7 @@ struct ContentView: View {
     // MARK: Stored properties
     @State var selectedDay = 1
     @State var selectedHour = 1
+    @State var selectedMinute = 0
     @State var recurringNotification = false
     
     // MARK: Computed properties
@@ -61,15 +62,16 @@ struct ContentView: View {
                     .padding(.horizontal)
                     .frame(height: 1)
                 
-                // Publish notification on a specific day and time
+                // Publish notification at a particular time of the week
                 VStack(alignment: .leading, spacing: 10) {
                     
                     Group {
-                        Text("On a specific day at a specific time")
+                        Text("At a particular time of the week")
                             .bold()
                         
-                        Text("What day?")
+                        Text("*What day?*")
                             .font(.subheadline)
+                            .padding(.top, 5)
                         
                         HStack {
                             Picker(selection: $selectedDay,
@@ -93,7 +95,10 @@ struct ContentView: View {
                                 .font(.subheadline)
                         }
                         
-                        
+                        Text("*At what hour?*")
+                            .font(.subheadline)
+                            .padding(.top, 5)
+
                         HStack {
                             
                             Picker(selection: $selectedHour,
@@ -139,14 +144,40 @@ struct ContentView: View {
                             
                             Spacer()
                             
-                            Text("Selected time is: \(selectedHour)")
+                            Text("Selected hour is: \(selectedHour)")
                                 .font(.subheadline)
                         }
-                        
 
-                        // Example usage, when toggle is on
+                        Text("*At what time within on the hour?*")
+                            .font(.subheadline)
+                            .padding(.top, 5)
+
+                        HStack {
+                            
+                            Picker(selection: $selectedMinute,
+                                   label: Text("Minute of hour"),
+                                   content: {
+                                
+                                Group {
+                                    Text("on the hour").tag(0)
+                                    Text("15").tag(15)
+                                    Text("30").tag(30)
+                                    Text("45").tag(45)
+                                }
+                                
+                            })
+                            .pickerStyle(.menu)
+                            
+                            Spacer()
+                            
+                            Text("Selected minute is is: \(selectedMinute)")
+                                .font(.subheadline)
+                        }
+
+
+                        // Is the notification meant to be recurring?
                         Toggle(isOn: $recurringNotification) {
-                            Text("Recurring?")
+                            Text("*Recurring?*")
                                 .font(.subheadline)
                         }
                         
@@ -171,6 +202,7 @@ struct ContentView: View {
                                                 body: "This was configued to run on day \(selectedDay) of the week at hour \(selectedHour)",
                                                 onDay: selectedDay,
                                                 atHour: selectedHour,
+                                                atMinute: selectedMinute,
                                                 recurring: recurringNotification,
                                                 identifier: myNotificationsIdentifier)
                                                         

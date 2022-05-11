@@ -33,6 +33,7 @@ func askNotificationPermission() {
 ///   - body: The body of the notification; can be somewhat longer. "Walking time from Foodland to campus is about 32 minutes."
 ///   - timeUntil: A length of time, measured in seconds, until the notification will be published.
 ///   - identifier: A unique identifier for notifications published by this app, e.g.: "com.mydomainname.localnotificationsexample"
+/// - Tag: notifications_time_interval
 func publishNotification(title: String,
                          subtitle: String,
                          body: String,
@@ -48,8 +49,8 @@ func publishNotification(title: String,
     // Show this notification x number of seconds from now
     let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeUntil, repeats: false)
     
-    // Choose a random identifier
-    let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+    // Create the request, using the identifier given
+    let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
     
     // Add our notification request
     UNUserNotificationCenter.current().add(request)
@@ -59,7 +60,7 @@ func publishNotification(title: String,
     
 }
 
-/// Publish a local notification that runs at a particular day and time of the week.
+/// Publish a local notification that runs at a particular day and time of the week; notification could recur (repeat).
 /// - Parameters:
 ///   - title: The title of the notification; should be kept brief.
 ///   - subtitle: The subtitle of the notification; should be kept brief.
@@ -69,6 +70,7 @@ func publishNotification(title: String,
 ///   - atMinute: An integer in the range 0 to 59.
 ///   - recurring: Whether this notification should repeat.
 ///   - identifier: A unique identifier for notifications published by this app, e.g.: "com.mydomainname.localnotificationsexample"
+/// - Tag: notifications_date_time
 func publishNotification(title: String,
                          subtitle: String,
                          body: String,
@@ -91,12 +93,12 @@ func publishNotification(title: String,
     dateComponents.hour = atHour
     dateComponents.minute = atMinute
     
-    // Show this notification x number of seconds from now
+    // Show this notification on the day / hour / minute given
     let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: recurring)
     
-    // Choose a random identifier
-    let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-    
+    // Create the request, using the identifier given
+    let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+
     // Add our notification request
     UNUserNotificationCenter.current().add(request)
     
@@ -104,3 +106,4 @@ func publishNotification(title: String,
     Logger().notice("Notification has been scheduled.")
     
 }
+
