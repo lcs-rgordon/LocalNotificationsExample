@@ -107,3 +107,48 @@ func publishNotification(title: String,
     
 }
 
+/// Publish a local notification that runs at a specific date and time.
+/// - Parameters:
+///   - title: The title of the notification; should be kept brief.
+///   - subtitle: The subtitle of the notification; should be kept brief.
+///   - body: The body of the notification; can be somewhat longer.
+///   - occuringat: The date to show the notification.
+///   - identifier: A unique identifier for notifications published by this app, e.g.: "com.mydomainname.localnotificationsexample"
+/// - Tag: notifications_date_time
+func publishNotification(title: String,
+                         subtitle: String,
+                         body: String,
+                         occuringAt providedDateTime: Date,
+                         identifier: String = UUID().uuidString) {
+    
+    let content = UNMutableNotificationContent()
+    content.title = title
+    content.subtitle = subtitle
+    content.body = body
+    content.sound = UNNotificationSound.default
+    
+    // Configure the day / time to deliver this notification
+    var dateComponents = DateComponents()
+    let calendarDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: providedDateTime)
+    dateComponents.calendar = Calendar.current
+    dateComponents.year = calendarDate.year
+    dateComponents.month = calendarDate.month
+    dateComponents.day = calendarDate.day
+    dateComponents.hour = calendarDate.hour
+    dateComponents.minute = calendarDate.minute
+    
+    
+    // Show this notification on the given date
+    let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+    
+    // Create the request, using the identifier given
+    let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+
+    // Add our notification request
+    UNUserNotificationCenter.current().add(request)
+    
+    // Report
+    Logger().notice("Notification has been scheduled.")
+    print(dump(dateComponents))
+
+}

@@ -14,13 +14,52 @@ struct ContentView: View {
     @State var selectedHour = 1
     @State var selectedMinute = 0
     @State var recurringNotification = false
+    @State var selectedDateAndTime = Date() // now
+    let now = Date()
     
     // MARK: Computed properties
+    
+    // Round up to the next hour
+    // ADAPTED FROM: https://stackoverflow.com/a/42626860
+    var dateAndTimeOfNextHour: Date {
+        
+        // Find current date and date components
+        let now = Date()
+        //2017-03-06 13:23:40 +0000
+        let calendar = Calendar.current
+        let oneHourInFuture = calendar.date(byAdding: .hour, value: 1, to: now) ?? Date()
+        let hour = calendar.component(.hour, from: oneHourInFuture)
+        
+        // Round up to next hour
+        let newDate = calendar.date(bySettingHour: hour,
+                                    minute: 0,
+                                    second: 0,
+                                    of: oneHourInFuture)!
+        return newDate
+    }
+    
+    // Selected date in a useful format
+    var formattedSelectedDateAndTime: String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        formatter.doesRelativeDateFormatting = true
+        
+        return formatter.string(from: selectedDateAndTime)
+    }
+    
+    
+    // The body property of the view
     var body: some View {
         
         NavigationView {
             
             ScrollView {
+                
+                Rectangle()
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal)
+                    .frame(height: 1)
                 
                 // Publish notification after a set period of time in seconds
                 VStack(alignment: .leading, spacing: 10) {
@@ -98,7 +137,7 @@ struct ContentView: View {
                         Text("*At what hour?*")
                             .font(.subheadline)
                             .padding(.top, 5)
-
+                        
                         HStack {
                             
                             Picker(selection: $selectedHour,
@@ -147,11 +186,11 @@ struct ContentView: View {
                             Text("Selected hour is: \(selectedHour)")
                                 .font(.subheadline)
                         }
-
-                        Text("*At what time within on the hour?*")
+                        
+                        Text("*At what time within the hour?*")
                             .font(.subheadline)
                             .padding(.top, 5)
-
+                        
                         HStack {
                             
                             Picker(selection: $selectedMinute,
@@ -173,8 +212,8 @@ struct ContentView: View {
                             Text("Selected minute is is: \(selectedMinute)")
                                 .font(.subheadline)
                         }
-
-
+                        
+                        
                         // Is the notification meant to be recurring?
                         Toggle(isOn: $recurringNotification) {
                             Text("*Recurring?*")
@@ -186,7 +225,7 @@ struct ContentView: View {
                             Text("Notification will recur: \(recurringNotification ? "yes" : "no")")
                                 .font(.subheadline)
                         }
-
+                        
                     }
                     .padding(.horizontal)
                     
@@ -196,7 +235,7 @@ struct ContentView: View {
                         
                         Button(action: {
                             
-                            // Publish a notification that will occur 1 minute from now
+                            // Publish a notification for the given day, hour, minute
                             publishNotification(title: "This is the title",
                                                 subtitle: "At a specific date and time",
                                                 body: "This was configued to run on day \(selectedDay) of the week at hour \(selectedHour)",
@@ -205,7 +244,7 @@ struct ContentView: View {
                                                 atMinute: selectedMinute,
                                                 recurring: recurringNotification,
                                                 identifier: myNotificationsIdentifier)
-                                                        
+                            
                         }, label: {
                             
                             Text("Publish Notification")
@@ -215,13 +254,68 @@ struct ContentView: View {
                         
                         Spacer()
                         
-                        Text("This notification will appear at the indicated time, and \(recurringNotification == true ? "will" : "will not") recur or repeat.")
+                        Text("This notification will appear on the selected day and time, and \(recurringNotification == true ? "will" : "will not") recur or repeat.")
                             .font(.caption)
                         
                         Spacer()
                     }
                 }
                 
+                Rectangle()
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal)
+                    .frame(height: 1)
+                
+                // Publish notification at a specific date and time
+                VStack(alignment: .leading, spacing: 10) {
+                    
+                    Group {
+                        Text("At a given date and time")
+                            .bold()
+                        
+                        // Compact
+                        DatePicker("",
+                                   selection: $selectedDateAndTime,
+                                   in: now...)
+                        .datePickerStyle(.compact)
+                    }
+                    .padding(.horizontal)
+                    
+                    HStack {
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            
+                            // Publish a notification for the selected date/time
+                            publishNotification(title: "This is the title",
+                                                subtitle: "At a specific date and time",
+                                                body: "\(formattedSelectedDateAndTime) was the date & time this notification was scheduled for.",
+                                                occuringAt: selectedDateAndTime,
+                                                identifier: myNotificationsIdentifier)
+                            
+                        }, label: {
+                            
+                            Text("Publish Notification")
+                            
+                        })
+                        .buttonStyle(.bordered)
+                        
+                        Spacer()
+                        
+                        Text("This notification will appear at the indicated date and time.")
+                            .font(.caption)
+                        
+                        Spacer()
+                    }
+                    
+                    
+                }
+                
+            }
+            .task {
+                // Set the current date and time for the DatePicker to the start of the next hour
+                selectedDateAndTime = dateAndTimeOfNextHour
             }
             .background(Color.yellow)
             .navigationTitle("Notifications")
