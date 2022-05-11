@@ -58,3 +58,49 @@ func publishNotification(title: String,
     Logger().notice("Notification has been scheduled.")
     
 }
+
+/// Publish a local notification that runs at a particular day and time of the week.
+/// - Parameters:
+///   - title: The title of the notification; should be kept brief. e.g.: "Return to Campus Suggested"
+///   - subtitle: The subtitle of the notification; should be kept brief. e.g.: "40 minutes of leave time remain"
+///   - body: The body of the notification; can be somewhat longer. "Walking time from Foodland to campus is about 32 minutes."
+///   - onDay: An integer in the range 1 to 7, where Sunday is day 1.
+///   - atHour: An integer in the range 0 to 23, where midnight is 0 and 11 PM is 23.
+///   - atMinute: An integer in the range 0 to 59.
+///   - recurring: Whether this notification should repeat.
+///   - identifier: A unique identifier for notifications published by this app, e.g.: "com.mydomainname.localnotificationsexample"
+func publishNotification(title: String,
+                         subtitle: String,
+                         body: String,
+                         onDay: Int,
+                         atHour: Int,
+                         atMinute: Int = 0,
+                         recurring: Bool,
+                         identifier: String = UUID().uuidString) {
+    
+    let content = UNMutableNotificationContent()
+    content.title = title
+    content.subtitle = subtitle
+    content.body = body
+    content.sound = UNNotificationSound.default
+    
+    // Configure the day / time to deliver this notification
+    var dateComponents = DateComponents()
+    dateComponents.calendar = Calendar.current
+    dateComponents.weekday = onDay
+    dateComponents.hour = atHour
+    dateComponents.minute = atMinute
+    
+    // Show this notification x number of seconds from now
+    let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: recurring)
+    
+    // Choose a random identifier
+    let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+    
+    // Add our notification request
+    UNUserNotificationCenter.current().add(request)
+    
+    // Report
+    Logger().notice("Notification has been scheduled.")
+    
+}
