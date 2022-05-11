@@ -61,9 +61,9 @@ func publishNotification(title: String,
 
 /// Publish a local notification that runs at a particular day and time of the week.
 /// - Parameters:
-///   - title: The title of the notification; should be kept brief. e.g.: "Return to Campus Suggested"
-///   - subtitle: The subtitle of the notification; should be kept brief. e.g.: "40 minutes of leave time remain"
-///   - body: The body of the notification; can be somewhat longer. "Walking time from Foodland to campus is about 32 minutes."
+///   - title: The title of the notification; should be kept brief.
+///   - subtitle: The subtitle of the notification; should be kept brief.
+///   - body: The body of the notification; can be somewhat longer.
 ///   - onDay: An integer in the range 1 to 7, where Sunday is day 1.
 ///   - atHour: An integer in the range 0 to 23, where midnight is 0 and 11 PM is 23.
 ///   - atMinute: An integer in the range 0 to 59.
